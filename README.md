@@ -1,0 +1,16 @@
+CREATE TABLE contas ( 
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    codigo TEXT NOT NULL UNIQUE, 
+    nome TEXT NOT NULL, 
+    tipo TEXT CHECK(tipo IN ('ATIVO', 'PASSIVO')) NOT NULL, 
+    saldo REAL NOT NULL DEFAULT 0 
+); 
+
+CREATE TABLE transacoes ( 
+    id INTEGER PRIMARY KEY AUTOINCREMENT, 
+    conta_id INTEGER NOT NULL, 
+    tipo TEXT CHECK(tipo IN ('CREDITO', 'DEBITO')) NOT NULL, 
+    valor REAL NOT NULL, 
+    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+    FOREIGN KEY (conta_id) REFERENCES contas(id) 
+); 
